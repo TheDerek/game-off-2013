@@ -9,10 +9,6 @@ You start the game with all possible abilities as you aim to reach the end of th
 Each route requires a focus on an individual ability to reach the goal. However, once you arrive at the goal using a certain path, the ability you used to reach that end must be sacrificed.
 The level is then restarted with said ability taken away from you, and as such the previously used path will be rendered unusable with the previously used exit being sealed.
 
-The features are:
-* Something
-* something else!
-
 Your goal
 ---------
 
