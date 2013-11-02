@@ -27,7 +27,7 @@ public class DynamicSprite implements Component
 			FileHandle files[] = folder.list();
 			TextureRegion[] animation = new TextureRegion[files.length];
 			
-			for(int x = 0; x < files.length; x++)
+			for(int x = 0; x < files.length-1; x++)
 			{
 				animation[x] = new TextureRegion(new Texture(files[x]));
 			}
