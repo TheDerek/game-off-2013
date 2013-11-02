@@ -12,13 +12,13 @@ public class Launcher
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 640;
 		config.height = 480;
-		config.useGL20 = false;
+		config.useGL20 = true;
 		config.fullscreen = false;
 		config.title = "Game";
 		config.vSyncEnabled = true;
 		config.samples = 0;
 		
-		LwjglApplication app = new LwjglApplication(new Main(), config);
+		LwjglApplication app = new LwjglApplication(new Level(), config);
 		
 	}
 

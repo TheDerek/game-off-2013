@@ -13,6 +13,7 @@ public class World
 	private ObjectMap<Class<? extends Manager>, Manager> managers;
 	
 	private Array<Entity> entites;
+	private float delta;
 	
 	public World()
 	{
@@ -34,7 +35,7 @@ public class World
 			for(Manager man : managers.values())
 			{
 				if(man.canProcess(e))
-					man.processEntity(e);
+					man.processEntity(e, this);
 			}
 		}
 	}
@@ -51,6 +52,23 @@ public class World
 		entites.add(e);
 		return e;
 		
+	}
+
+
+	public float getDelta()
+	{
+		return delta;
+	}
+
+
+	public void setDelta(float delta)
+	{
+		this.delta = delta;
+	}
+	
+	public Array<Entity> getEntites()
+	{
+		return entites;
 	}
 
 }
