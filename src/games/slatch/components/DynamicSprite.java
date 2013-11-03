@@ -20,7 +20,7 @@ public class DynamicSprite implements Component
 	private ObjectMap<Animations, TextureRegion[]> animations;
 	
 	public int currentTime = 0;
-	public int framesPerImage = 3;
+	public int framesPerImage = 1;
 	public Animations currentAnimation = Animations.idle;
 	
 	public DynamicSprite(ObjectMap<Animations, String> locations)
@@ -33,7 +33,10 @@ public class DynamicSprite implements Component
 			ArrayList<FileHandle> filesList = new ArrayList<>();
 			
 			for(FileHandle file : folder.list())
+			{
+				if(file.extension().equals("png"))
 				filesList.add(file);
+			}
 			
 			Collections.sort(filesList, new Comparator<FileHandle>()
 			{
