@@ -15,3 +15,13 @@ Your goal
 The aim of the game is to direct our loveable hero, Slatch, to the end of the level using every possible path (and therefore use every possible ability) in the hopes of sealing off and preventing each method of planetary destruction.
 
 ![cute](https://github.com/TheDerek/game-off-2013/blob/master/assests/slatch.png?raw=true)
+
+Tools and libraries used
+------------------------
+
+* Java - Programming language
+* Libgdx - Graphics/Game library
+* Eclipse - IDE
+* Inkscape - Image editor
+* Spriter - Animation Editor
+* Google Web Toolkit - Converting to HTML5
