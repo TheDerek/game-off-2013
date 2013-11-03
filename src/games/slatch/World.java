@@ -1,6 +1,7 @@
 package games.slatch;
 
 import games.slatch.components.Component;
+import games.slatch.components.Controller;
 import games.slatch.entities.Entity;
 import games.slatch.managers.Manager;
 
@@ -15,6 +16,8 @@ public class World
 	private Array<Entity> entites;
 	private float delta;
 	
+	public Controller controller; 
+	
 	public World()
 	{
 		
@@ -26,6 +29,8 @@ public class World
 		components = new ObjectMap<>();
 		managers = new ObjectMap<>();
 		entites = new Array<>();
+		controller = new Controller();
+		controller.setupController();
 	}
 	
 	public void step()
