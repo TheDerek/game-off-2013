@@ -1,5 +1,10 @@
 package games.slatch.components;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import games.slatch.singletons.Animations;
 
 import com.badlogic.gdx.Gdx;
@@ -7,6 +12,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
 public class DynamicSprite implements Component
@@ -14,7 +20,7 @@ public class DynamicSprite implements Component
 	private ObjectMap<Animations, TextureRegion[]> animations;
 	
 	public int currentTime = 0;
-	public int framesPerImage = 5;
+	public int framesPerImage = 3;
 	public Animations currentAnimation = Animations.idle;
 	
 	public DynamicSprite(ObjectMap<Animations, String> locations)
@@ -24,11 +30,29 @@ public class DynamicSprite implements Component
 		for(String s : locations.values())
 		{
 			FileHandle folder = Gdx.files.internal(s);
-			FileHandle files[] = folder.list();
+			ArrayList<FileHandle> filesList = new ArrayList<>();
+			
+			for(FileHandle file : folder.list())
+				filesList.add(file);
+			
+			Collections.sort(filesList, new Comparator<FileHandle>()
+			{
+
+				@Override
+				public int compare(FileHandle o1, FileHandle o2)
+				{
+					return o1.name().compareTo(o2.name());
+					
+				}
+			});
+			
+			FileHandle files[] = filesList.toArray(new FileHandle[filesList.size()]);
+			
 			TextureRegion[] animation = new TextureRegion[files.length];
 			
-			for(int x = 0; x < files.length-1; x++)
+			for(int x = 0; x < files.length; x++)
 			{
+				System.out.println(files[x]);
 				animation[x] = new TextureRegion(new Texture(files[x]));
 			}
 			
@@ -57,8 +81,9 @@ public class DynamicSprite implements Component
 			frame = currentTime = 0;
 		}
 		
-		System.out.println(frame);
+		
 		TextureRegion image = animations.get(animation)[frame];
+		
 		return image;
 	}
 
