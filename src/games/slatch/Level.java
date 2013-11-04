@@ -31,7 +31,7 @@ public class Level implements ApplicationListener
 		world.createWorld();
 		
 		world.addManager(new Movement());
-		world.addManager(new Render(8, 6));
+		world.addManager(new Render(4, 3));
 		world.addManager(new Input());
 		world.setDelta(1/60f);
 		
