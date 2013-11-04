@@ -10,6 +10,7 @@ public class Movement implements Manager
 	Velocity v;
 	Position p;
 	
+	private float damping = 0.99f;
 
 	@Override
 	public void processEntity(Entity e, World world)
@@ -17,6 +18,7 @@ public class Movement implements Manager
 		v = (Velocity) e.getComp(Velocity.class);
 		p = (Position) e.getComp(Position.class);
 		
+		v.scl(damping);
 		p.add(v.cpy().scl(world.getDelta()));
 
 	}

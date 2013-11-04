@@ -22,6 +22,7 @@ public class DynamicSprite implements Component
 	public int currentTime = 0;
 	public int framesPerImage = 1;
 	public Animations currentAnimation = Animations.idle;
+	public boolean flip = false;
 	
 	public DynamicSprite(ObjectMap<Animations, String> locations)
 	{
@@ -29,37 +30,8 @@ public class DynamicSprite implements Component
 		
 		for(String s : locations.values())
 		{
-			FileHandle folder = Gdx.files.internal(s);
-			ArrayList<FileHandle> filesList = new ArrayList<>();
+			putAnimation(s, locations.findKey(s, false));
 			
-			for(FileHandle file : folder.list())
-			{
-				if(file.extension().equals("png"))
-				filesList.add(file);
-			}
-			
-			Collections.sort(filesList, new Comparator<FileHandle>()
-			{
-
-				@Override
-				public int compare(FileHandle o1, FileHandle o2)
-				{
-					return o1.name().compareTo(o2.name());
-					
-				}
-			});
-			
-			FileHandle files[] = filesList.toArray(new FileHandle[filesList.size()]);
-			
-			TextureRegion[] animation = new TextureRegion[files.length];
-			
-			for(int x = 0; x < files.length; x++)
-			{
-				System.out.println(files[x]);
-				animation[x] = new TextureRegion(new Texture(files[x]));
-			}
-			
-			animations.put(locations.findKey(s, false), animation);
 		}
 	}
 	
@@ -69,12 +41,53 @@ public class DynamicSprite implements Component
 		animations.put(Animations.idle, region);
 	}
 	
+	public void putAnimation(String location, Animations ani)
+	{
+		FileHandle folder = Gdx.files.internal(location);
+		ArrayList<FileHandle> filesList = new ArrayList<>();
+		
+		for(FileHandle file : folder.list())
+		{
+			if(file.extension().equals("png"))
+			filesList.add(file);
+		}
+		
+		Collections.sort(filesList, new Comparator<FileHandle>()
+		{
+
+			@Override
+			public int compare(FileHandle o1, FileHandle o2)
+			{
+				return o1.name().compareTo(o2.name());
+				
+			}
+		});
+		
+		FileHandle files[] = filesList.toArray(new FileHandle[filesList.size()]);
+		
+		TextureRegion[] animation = new TextureRegion[files.length];
+		
+		for(int x = 0; x < files.length; x++)
+		{
+			System.out.println(files[x]);
+			animation[x] = new TextureRegion(new Texture(files[x]));
+		}
+		
+		animations.put(ani, animation);
+	}
+	
 	public static DynamicSprite create(String location)
 	{
 		ObjectMap<Animations, String> temp = new ObjectMap<>();
 		temp.put(Animations.idle, location);
 		return new DynamicSprite(temp);
 	}
+	
+	public boolean hasAnimation(Animations animation)
+	{
+		return animations.containsKey(animation);
+	}
+
 	
 	public TextureRegion getImage(Animations animation, int time)
 	{

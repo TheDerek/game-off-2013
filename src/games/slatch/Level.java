@@ -1,13 +1,17 @@
 package games.slatch;
 
+import games.slatch.components.Controller;
 import games.slatch.components.DynamicSprite;
 import games.slatch.components.StaticSprite;
 import games.slatch.components.vectors.Position;
 import games.slatch.components.vectors.Size;
 import games.slatch.components.vectors.Velocity;
 import games.slatch.entities.Entity;
+import games.slatch.managers.Input;
 import games.slatch.managers.Movement;
 import games.slatch.managers.Render;
+import games.slatch.singletons.Animations;
+import games.slatch.singletons.KeyMaps;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -28,13 +32,19 @@ public class Level implements ApplicationListener
 		
 		world.addManager(new Movement());
 		world.addManager(new Render(8, 6));
+		world.addManager(new Input());
 		world.setDelta(1/60f);
 		
 		e = world.createEntity();
 		e.addComp(new Position(0, 0));
 		e.addComp(new Velocity(0, 0));
 		e.addComp(new Size(0.8f, 1));
-		e.addComp(DynamicSprite.create("assests/slatch_walk"));
+		e.addComp(new Controller(KeyMaps.getInstance().player1));
+		
+		DynamicSprite sprite = DynamicSprite.create("assests/slatch_idle");
+		sprite.putAnimation("assests/slatch_walk", Animations.walkRight);
+		e.addComp(sprite);
+	
 	
 	}
 

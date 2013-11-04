@@ -29,8 +29,7 @@ public class World
 		components = new ObjectMap<>();
 		managers = new ObjectMap<>();
 		entites = new Array<>();
-		controller = new Controller();
-		controller.setupController();
+
 	}
 	
 	public void step()
