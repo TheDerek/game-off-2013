@@ -17,7 +17,7 @@ public class Input implements Manager
 	Velocity velocity;
 	DynamicSprite sprite;
 
-	private float speed = 0.01f;
+	private float speed = 0.1f;
 
 	@Override
 	public void processEntity(Entity e, World world)
@@ -30,6 +30,7 @@ public class Input implements Manager
 
 		if (isPressed(controller, Actions.walkRight))
 		{
+			
 			velocity.add(speed, 0);
 
 			if (sprite != null)
@@ -44,6 +45,7 @@ public class Input implements Manager
 
 		if (isPressed(controller, Actions.walkLeft))
 		{
+			
 			velocity.add(-speed, 0);
 
 			if (sprite != null)

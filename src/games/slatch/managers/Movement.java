@@ -10,7 +10,7 @@ public class Movement implements Manager
 	Velocity v;
 	Position p;
 	
-	private float damping = 0.99f;
+	private float damping = 0.95f;
 
 	@Override
 	public void processEntity(Entity e, World world)
