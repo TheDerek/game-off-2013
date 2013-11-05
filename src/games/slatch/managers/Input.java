@@ -35,8 +35,9 @@ public class Input implements Manager
 
 			if (sprite != null)
 			{
-				sprite.currentAnimation = Animations.walkRight;
-				//sprite.framesPerImage = (int) (1/(velocity.x* 5));
+				
+
+				sprite.setCurrentAnimation(Animations.walkRight);
 			}
 			
 			
@@ -50,14 +51,24 @@ public class Input implements Manager
 
 			if (sprite != null)
 			{
-				sprite.currentAnimation = Animations.walkLeft;
+				sprite.setCurrentAnimation(Animations.walkLeft);
 			}
 		}
 
 		if (!Gdx.input.isKeyPressed(Keys.ANY_KEY))
 			// WHERES THE ANY KEY
 			if (sprite != null)
-				sprite.currentAnimation = Animations.idle;
+			{
+				if(velocity.x > 0)
+					sprite.setCurrentAnimation(Animations.idleRight);
+				
+				if(velocity.x < 0)
+					sprite.setCurrentAnimation(Animations.idleLeft);
+				
+				
+			}
+		
+		
 	}
 
 	@Override

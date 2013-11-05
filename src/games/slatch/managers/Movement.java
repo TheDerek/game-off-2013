@@ -1,5 +1,7 @@
 package games.slatch.managers;
 
+import com.badlogic.gdx.math.Vector2;
+
 import games.slatch.World;
 import games.slatch.components.vectors.Position;
 import games.slatch.components.vectors.Velocity;
@@ -11,6 +13,7 @@ public class Movement implements Manager
 	Position p;
 	
 	private float damping = 0.95f;
+	private float gravity = 0f;
 
 	@Override
 	public void processEntity(Entity e, World world)
@@ -18,8 +21,11 @@ public class Movement implements Manager
 		v = (Velocity) e.getComp(Velocity.class);
 		p = (Position) e.getComp(Position.class);
 		
+		v.add(new Vector2(0, world.getDelta() * gravity));
+		
 		v.scl(damping);
 		p.add(v.cpy().scl(world.getDelta()));
+		
 
 	}
 

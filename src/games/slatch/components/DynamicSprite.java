@@ -21,8 +21,10 @@ public class DynamicSprite implements Component
 	
 	public int currentTime = 0;
 	public int framesPerImage = 1;
-	public Animations currentAnimation = Animations.idle;
+	private Animations currentAnimation = Animations.idle;
 	public boolean flip = false;
+	
+	public Animations idleAnimation = Animations.idle;
 	
 	public DynamicSprite(ObjectMap<Animations, String> locations)
 	{
@@ -101,6 +103,17 @@ public class DynamicSprite implements Component
 		TextureRegion image = animations.get(animation)[frame];
 		
 		return image;
+	}
+
+	public Animations getCurrentAni()
+	{
+
+		return currentAnimation;
+	}
+
+	public void setCurrentAnimation(Animations currentAnimation)
+	{
+		this.currentAnimation = currentAnimation;
 	}
 
 }

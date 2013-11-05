@@ -44,27 +44,15 @@ public class Render implements Manager
 		size = (Size) e.getComp(Size.class);
 
 		TextureRegion render = null;
-		boolean flip = false;
 
-		try
+		if (sprite.hasAnimation(sprite.getCurrentAni()))
+			render = sprite.getImage(sprite.getCurrentAni(), sprite.currentTime);
+		else
 		{
-			render = sprite.getImage(sprite.currentAnimation, sprite.currentTime);
-		} catch (NullPointerException point)
-		{
-			sprite.flip = true;
-
-			if (sprite.currentAnimation.equals(Animations.walkRight) && sprite.hasAnimation(Animations.walkLeft))
-				render = sprite.getImage(Animations.walkLeft, sprite.currentTime);
-			else if (sprite.currentAnimation.equals(Animations.walkLeft) && sprite.hasAnimation(Animations.walkRight))
-				render = sprite.getImage(Animations.walkRight, sprite.currentTime);
-			else
-				render = sprite.getImage(Animations.idle, sprite.currentTime);
-
+			render = sprite.getImage(sprite.getCurrentAni().getAlt(), sprite.currentTime);
 		}
-
-		if (sprite.hasAnimation(sprite.currentAnimation) && sprite.currentAnimation == Animations.walkLeft
-				|| sprite.currentAnimation == Animations.walkRight)
-			sprite.flip = false;
+		
+		boolean useAlt = !sprite.hasAnimation(sprite.getCurrentAni());
 
 		if (!startedRendering)
 		{
@@ -77,10 +65,27 @@ public class Render implements Manager
 		}
 		// ----Render-------------------------
 
-		float drawSize = sprite.flip ? size.x * -1 : size.x;
+		float drawSizeX = size.x;
+		float drawSizeY = size.y;
 
-		batch.draw(render, sprite.flip ? position.x + size.x : position.x, position.y, size.x / 2, size.y / 2f,
-				drawSize, size.y, 1, 1, 0);
+		if (useAlt)
+		{
+			
+			drawSizeX = sprite.getCurrentAni().flipX ? size.x * -1 : size.x;
+			drawSizeY = sprite.getCurrentAni().flipY ? size.y * -1 : size.y;
+		}
+
+		batch.draw(
+				render,
+				useAlt ? (sprite.getCurrentAni().flipX ? position.x + size.x : position.x) : position.x,
+				useAlt ? (sprite.getCurrentAni().flipY ? position.y + size.y : position.y) : position.y,
+				size.x / 2,
+				size.y / 2f,
+				drawSizeX,
+				drawSizeY,
+				1,
+				1,
+				0);
 
 		sprite.currentTime++;
 

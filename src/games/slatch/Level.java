@@ -43,6 +43,8 @@ public class Level implements ApplicationListener
 		
 		DynamicSprite sprite = DynamicSprite.create("assests/slatch_idle");
 		sprite.putAnimation("assests/slatch_walk", Animations.walkRight);
+		sprite.putAnimation("assests/slatch_idle", Animations.idleRight);
+		sprite.putAnimation("assests/slatch_airborn", Animations.fallRight);
 		e.addComp(sprite);
 	
 	
